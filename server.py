@@ -25,6 +25,7 @@ def inserir_peca(coluna, jogador):
 def alternar_jogador():
     global jogador_atual
     jogador_atual = 'O' if jogador_atual == 'X' else 'X'  # Alterna entre 'X' e 'O'
+    #teste
 
 def get_jogador_atual():
     return jogador_atual
