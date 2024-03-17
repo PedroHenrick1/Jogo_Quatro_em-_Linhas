@@ -66,6 +66,19 @@ def reiniciar_jogo():
 def lista_jogadores():
     return jogadores
 
+def get_tabuleiro_adversario(jogador_atual):
+    global jogadores, tabuleiro
+
+    jogador_adversario = 'X' if jogador_atual == 'O' else 'O'
+    if jogador_atual in jogadores.values() and jogador_adversario in jogadores.values():
+        return tabuleiro, None  # Retorna o tabuleiro atualizado do jogador adversário
+    else:
+        return None, "Jogadores não registrados corretamente."
+
+# Registrando a função no servidor
+
+
+
 # Criação do servidor RPC
 server = SimpleXMLRPCServer(("localhost", 8000), allow_none=True)
 print("Servidor RPC iniciado em http://localhost:8000")
@@ -78,6 +91,7 @@ server.register_function(registrar_jogador, "registrar_jogador")
 server.register_function(reiniciar_jogo, "reiniciar_jogo")
 server.register_function(lista_jogadores, "lista_jogadores")
 server.register_function(jogo_iniciado, "jogo_iniciado")
+server.register_function(get_tabuleiro_adversario, "get_tabuleiro_adversario")
 
 # Rodando o servidor indefinidamente
 server.serve_forever()
