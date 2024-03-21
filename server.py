@@ -74,6 +74,20 @@ def get_tabuleiro_adversario(jogador_atual):
         return tabuleiro, None  # Retorna o tabuleiro atualizado do jogador adversário
     else:
         return None, "Jogadores não registrados corretamente."
+    
+def ganhou(tabuleiro):
+    cont = 0
+    for linha in reversed(tabuleiro):
+        for coluna_idx in reversed(range(len(tabuleiro))):
+            if linha[coluna_idx] == 'X':
+                cont +=1
+            else:
+                cont = 0
+
+        if cont == 4:
+            return 'X'
+        
+
 
 # Registrando a função no servidor
 
@@ -92,6 +106,7 @@ server.register_function(reiniciar_jogo, "reiniciar_jogo")
 server.register_function(lista_jogadores, "lista_jogadores")
 server.register_function(jogo_iniciado, "jogo_iniciado")
 server.register_function(get_tabuleiro_adversario, "get_tabuleiro_adversario")
+server.register_function(ganhou, "ganhou")
 
 # Rodando o servidor indefinidamente
 server.serve_forever()

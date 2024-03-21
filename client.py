@@ -40,6 +40,7 @@ try:
 
     jogo_terminado = False
     resultado = None
+    ganhador = None
     while not jogo_terminado:
         jogador_atual_servidor = proxy.get_jogador_atual()  # Obter o jogador atual do servidor
         
@@ -53,22 +54,30 @@ try:
         if jogador_atual == jogador_atual_servidor:
             coluna = int(input(f"Sua vez, jogador {jogador_atual}. Escolha a coluna (1-8): "))
             resultado, mensagem_erro = proxy.jogar(coluna, jogador_atual)
+            if proxy.ganhou(resultado) == 'X':
+                ganhador = 'X'
+                jogo_terminado = True
             
+            
+            # Verificar se houve um erro na jogada
             if mensagem_erro:
                 print(mensagem_erro)
             else:
                 imprimir_tabuleiro(resultado)
+                
+                # Verificar se o jogador ganhou
+                # if vencedor:
+                #     print(f"Parabéns, jogador {vencedor}! Você ganhou!")
+                #     jogo_terminado = True
+                    
         else:
             print("Aguarde a vez do outro jogador.")
 
         # Verifica se houve um resultado final
-        try:
-            if isinstance(resultado, str):  # Se o resultado for uma mensagem de erro ou vitória
-                print(resultado)
-                jogo_terminado = True
-        except NameError:
-            pass  # Ignorar o erro de 'resultado' não definido
-
+            
+    if jogo_terminado:
+        print(f"O jogador {ganhador} ganhou o jogo")
+    
 
     input("Pressione Enter para fechar o cliente.")
 
