@@ -76,16 +76,28 @@ def get_tabuleiro_adversario(jogador_atual):
         return None, "Jogadores não registrados corretamente."
     
 def ganhou(tabuleiro):
-    cont = 0
-    for linha in reversed(tabuleiro):
-        for coluna_idx in reversed(range(len(tabuleiro))):
-            if linha[coluna_idx] == 'X':
-                cont +=1
-            else:
-                cont = 0
+    for jogador in ['X', 'O']:
+        cont = 0
+        for linha in tabuleiro:
+            for coluna in linha:
+                if coluna == jogador:
+                    cont += 1
+                    if cont == 4:
+                        return jogador
+                else:
+                    cont = 0
 
-        if cont == 4:
-            return 'X'
+        cont = 0
+        for coluna in range(len(tabuleiro[0])):
+            for linha in range(len(tabuleiro)):
+                if tabuleiro[linha][coluna] == jogador:
+                    cont += 1
+                    if cont == 4:
+                        return jogador
+                else:
+                    cont = 0
+
+    return None  # Nenhum jogador ganhou ainda
         
 
 

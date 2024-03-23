@@ -57,6 +57,9 @@ try:
             if proxy.ganhou(resultado) == 'X':
                 ganhador = 'X'
                 jogo_terminado = True
+            elif proxy.ganhou(resultado) == 'O':
+                ganhador = 'O'
+                jogo_terminado = True
             
             
             # Verificar se houve um erro na jogada
