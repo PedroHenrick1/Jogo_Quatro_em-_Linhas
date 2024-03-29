@@ -77,6 +77,7 @@ def get_tabuleiro_adversario(jogador_atual):
     
 def ganhou(tabuleiro):
     for jogador in ['X', 'O']:
+        # Verificar vitória na horizontal e vertical
         cont = 0
         for linha in tabuleiro:
             for coluna in linha:
@@ -97,7 +98,27 @@ def ganhou(tabuleiro):
                 else:
                     cont = 0
 
+    ganhador = False
+    for i, linha in enumerate(reversed(tabuleiro[0])):
+        if ganhador:
+            return jogador
+        for j, elemento in enumerate(linha):
+            lin = i
+            col = j
+            for k in range(4):
+                if lin+1 < len(tabuleiro) and col+1 < len(linha):
+                    if elemento == tabuleiro[lin+1][col+1]:
+                        cont += 1
+                lin += 1
+                col += 1
+            if cont == 4:
+                jogador = elemento
+                ganhador = True
+                print(f'elemento {elemento} ganhou')
+                break
+
     return None  # Nenhum jogador ganhou ainda
+
         
 
 

@@ -49,7 +49,7 @@ try:
         if mensagem_erro:
             print(mensagem_erro)
         else:
-            imprimir_tabuleiro(tabuleiro_adversario)
+            imprimir_tabuleiro(tabuleiro_adversario)        
         
         if jogador_atual == jogador_atual_servidor:
             coluna = int(input(f"Sua vez, jogador {jogador_atual}. Escolha a coluna (1-8): "))
