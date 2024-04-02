@@ -58,7 +58,6 @@ try:
             # Verificar se houve um erro na jogada
             if mensagem_erro:
                 print(mensagem_erro)
-                print('Espere por sua vez')
                 imprimir_tabuleiro(resultado)
             else:
                 imprimir_tabuleiro(resultado)
