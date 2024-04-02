@@ -98,31 +98,20 @@ def ganhou(tabuleiro):
                 else:
                     cont = 0
 
-    ganhador = False
-    for i, linha in enumerate(reversed(tabuleiro[0])):
-        if ganhador:
-            return jogador
-        for j, elemento in enumerate(linha):
-            lin = i
-            col = j
-            for k in range(4):
-                if lin+1 < len(tabuleiro) and col+1 < len(linha):
-                    if elemento == tabuleiro[lin+1][col+1]:
-                        cont += 1
-                lin += 1
-                col += 1
-            if cont == 4:
-                jogador = elemento
-                ganhador = True
-                print(f'elemento {elemento} ganhou')
-                break
+        # Verificar vitória nas diagonais
+        for i in range(len(tabuleiro)):
+            for j in range(len(tabuleiro[0])):
+                if tabuleiro[i][j] == jogador:
+                    # Verificar diagonal \
+                    if i + 3 < len(tabuleiro) and j + 3 < len(tabuleiro[0]):
+                        if tabuleiro[i + 1][j + 1] == jogador and tabuleiro[i + 2][j + 2] == jogador and tabuleiro[i + 3][j + 3] == jogador:
+                            return jogador
+                    # Verificar diagonal /
+                    if i + 3 < len(tabuleiro) and j - 3 >= 0:
+                        if tabuleiro[i + 1][j - 1] == jogador and tabuleiro[i + 2][j - 2] == jogador and tabuleiro[i + 3][j - 3] == jogador:
+                            return jogador
 
     return None  # Nenhum jogador ganhou ainda
-
-        
-
-
-# Registrando a função no servidor
 
 
 

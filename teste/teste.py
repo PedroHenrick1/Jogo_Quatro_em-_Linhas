@@ -1,5 +1,5 @@
 tabuleiro = [['O', 'O', 'O', 'O'],
-             ['O', 'O', 'O', 'X'],
+             ['O', 'X', 'O', 'X'],
              ['O', 'O', 'X', 'X'],
              ['O', 'X', 'X', 'X']]
 
@@ -12,6 +12,7 @@ for i, linha in enumerate(reversed(tabuleiro)):
     if ganhou:
         break
     for j, elemento in enumerate(linha):
+        cont = 0
         lin = i
         col = j
         for k in range(4):
