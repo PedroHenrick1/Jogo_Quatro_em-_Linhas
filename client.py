@@ -41,11 +41,21 @@ try:
     jogo_terminado = False
     resultado = None
     ganhador = None
+    coluna = None
     while not jogo_terminado:
         jogador_atual_servidor = proxy.get_jogador_atual()  # Obter o jogador atual do servidor
+        tabuleiro_adversario = proxy.get_tabuleiro_adversario(jogador_atual_servidor)[0]
+        if proxy.ganhou(tabuleiro_adversario) == 'X':
+            ganhador = 'X'
+            jogo_terminado = True
+            imprimir_tabuleiro(tabuleiro_adversario)
+        elif proxy.ganhou(tabuleiro_adversario) == 'O':
+            ganhador = 'O'
+            jogo_terminado = True
+            imprimir_tabuleiro(tabuleiro_adversario)
         
-        if jogador_atual == jogador_atual_servidor:
-            imprimir_tabuleiro(proxy.get_tabuleiro_adversario(jogador_atual_servidor)[0])  # Imprime o tabuleiro atualizado do adversário
+        if jogador_atual == jogador_atual_servidor and jogo_terminado == False:
+            imprimir_tabuleiro(tabuleiro_adversario)  # Imprime o tabuleiro atualizado do adversário
             coluna = int(input(f"Sua vez, jogador {jogador_atual}. Escolha a coluna (1-8): "))
             resultado, mensagem_erro = proxy.jogar(coluna, jogador_atual)
             if proxy.ganhou(resultado) == 'X':
@@ -64,7 +74,6 @@ try:
                 
 
     if jogo_terminado:
-        imprimir_tabuleiro(resultado)  # Imprime o tabuleiro final
         print(f"O jogador {ganhador} ganhou o jogo")
 
     input("Pressione Enter para fechar o cliente.")
