@@ -2,7 +2,7 @@ from xmlrpc.server import SimpleXMLRPCServer
 
 # Variáveis globais para controlar o jogo
 tabuleiro = None
-jogadores = {'X': None, 'O': None}
+jogadores = {'X': None, 'O': None} # Dicionários dos Jogadores a serem registrados
 jogador_atual = 'X'  # Começa com o jogador 'X'
 jogo_iniciado = False
 
@@ -25,20 +25,19 @@ def inserir_peca(coluna, jogador):
 def alternar_jogador():
     global jogador_atual
     jogador_atual = 'O' if jogador_atual == 'X' else 'X'  # Alterna entre 'X' e 'O'
-    #teste
 
 def get_jogador_atual():
     return jogador_atual
 
 def registrar_jogador(jogador):
     global jogadores, jogo_iniciado
-    if jogador not in jogadores.values():
+    if jogador not in jogadores.values():  # Se o jogador não está no dicionário
         for key, value in jogadores.items():
             if value is None:
                 jogadores[key] = jogador
-                if None not in jogadores.values():
+                if None not in jogadores.values(): # Verifica se não há mais jogadores não registrados
                     jogo_iniciado = True  # Ambos os jogadores estão prontos, inicia o jogo
-                return key
+                return key # Retorna a chave do jogador recém-registrado
     return None  # Todos os jogadores já estão registrados
 
 def jogo_iniciado():
@@ -89,7 +88,7 @@ def ganhou(tabuleiro):
                     cont = 0
 
         cont = 0
-        for coluna in range(len(tabuleiro[0])):
+        for coluna in range(len(tabuleiro[0])): # Itera sobre todas as colunas da linha
             for linha in range(len(tabuleiro)):
                 if tabuleiro[linha][coluna] == jogador:
                     cont += 1
@@ -103,12 +102,12 @@ def ganhou(tabuleiro):
             for j in range(len(tabuleiro[0])):
                 if tabuleiro[i][j] == jogador:
                     # Verificar diagonal \
-                    if i + 3 < len(tabuleiro) and j + 3 < len(tabuleiro[0]):
-                        if tabuleiro[i + 1][j + 1] == jogador and tabuleiro[i + 2][j + 2] == jogador and tabuleiro[i + 3][j + 3] == jogador:
+                    if i + 3 < len(tabuleiro) and j + 3 < len(tabuleiro[0]): # Verifica os limites da barreira do tabuleiro
+                        if tabuleiro[i + 1][j + 1] == jogador and tabuleiro[i + 2][j + 2] == jogador and tabuleiro[i + 3][j + 3] == jogador: # (i + 1, j + 1), (i + 2, j + 2), e (i + 3, j + 3)
                             return jogador
                     # Verificar diagonal /
-                    if i + 3 < len(tabuleiro) and j - 3 >= 0:
-                        if tabuleiro[i + 1][j - 1] == jogador and tabuleiro[i + 2][j - 2] == jogador and tabuleiro[i + 3][j - 3] == jogador:
+                    if i + 3 < len(tabuleiro) and j - 3 >= 0: # Verifica os limites da barreira do tabuleiro
+                        if tabuleiro[i + 1][j - 1] == jogador and tabuleiro[i + 2][j - 2] == jogador and tabuleiro[i + 3][j - 3] == jogador: # (i + 1, j - 1), (i + 2, j - 2), e (i + 3, j - 3)
                             return jogador
 
     return None  # Nenhum jogador ganhou ainda
@@ -117,7 +116,7 @@ def ganhou(tabuleiro):
 
 # Criação do servidor RPC
 server = SimpleXMLRPCServer(("localhost", 8000), allow_none=True)
-print("Servidor RPC iniciado em http://localhost:8000")
+print("Servidor RPC iniciado")
 
 # Registrando as funções no servidor
 server.register_function(jogar, "jogar")
